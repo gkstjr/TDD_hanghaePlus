@@ -27,6 +27,8 @@ dependencies {
     annotationProcessor(libs.lombok)
     annotationProcessor(libs.spring.boot.configuration.processor)
     testImplementation(libs.spring.boot.starter.test)
+    //프로젝트 설정파일 수정 안하기 위해 libs로 통일 x
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 }
 
 // about source and compilation

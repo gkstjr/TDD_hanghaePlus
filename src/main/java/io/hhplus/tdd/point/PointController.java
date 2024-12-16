@@ -1,13 +1,17 @@
 package io.hhplus.tdd.point;
 
+import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/point")
+@Validated
 public class PointController {
 
     private static final Logger log = LoggerFactory.getLogger(PointController.class);
@@ -17,7 +21,7 @@ public class PointController {
      */
     @GetMapping("{id}")
     public UserPoint point(
-            @PathVariable long id
+            @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id
     ) {
         return new UserPoint(0, 0, 0);
     }
