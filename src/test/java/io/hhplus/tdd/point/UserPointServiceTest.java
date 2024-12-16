@@ -43,7 +43,7 @@ public class UserPointServiceTest {
                 () -> userPointService.selectById(null)
         );
     }
-    //PointUser 데이터 추가 후 조회 기능 테스트
+    //PointUser 데이터 조회 기능 테스트
     @Test
     @DisplayName("포인트 조회 성공 테스트")
     public void findById() {
@@ -51,18 +51,14 @@ public class UserPointServiceTest {
         long userId = 1L;
         long mount = 10000;
         long current = System.currentTimeMillis();
-        given(userPointTable.insertOrUpdate(userId , mount))
-                .willReturn(new UserPoint(userId , mount , current));
 
         given(userPointTable.selectById(userId))
                 .willReturn(new UserPoint(userId , mount , current));
 
-
         //when
-        UserPoint userPoint = userPointService.insert(userId , mount);
         UserPoint findUserPoint = userPointService.selectById(userId);
         //then
-        assertEquals(findUserPoint.id() , userPoint.id());
+        assertEquals(findUserPoint.id() , userId);
     }
 
 }
