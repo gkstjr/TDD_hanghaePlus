@@ -22,4 +22,13 @@ public class UserPointService {
         if(Objects.isNull(userId)) throw new IllegalArgumentException("userId는 null이면 안됩니다.");
         return userPointTable.insertOrUpdate(userId , mount);
     }
+
+    public UserPoint charge(long userId, long chargePoint) {
+        if(Objects.isNull(userId)) throw new IllegalArgumentException("userId는 null이면 안됩니다.");
+
+        UserPoint findUserPoint = userPointTable.selectById(userId);
+        //userPoint객체에서 유효값 검증 책임
+        UserPoint chargedPoint = findUserPoint.charge(chargePoint);
+        return chargedPoint;
+    }
 }

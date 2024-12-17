@@ -40,7 +40,7 @@ public class PointController {
      */
     @PatchMapping("{id}/charge")
     public UserPoint charge(
-            @PathVariable long id,
+            @PathVariable  @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id,
             @RequestBody long amount
     ) {
         return new UserPoint(0, 0, 0);

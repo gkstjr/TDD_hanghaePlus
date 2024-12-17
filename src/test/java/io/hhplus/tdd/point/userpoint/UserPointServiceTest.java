@@ -1,6 +1,8 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.userpoint;
 
 import io.hhplus.tdd.database.UserPointTable;
+import io.hhplus.tdd.point.UserPoint;
+import io.hhplus.tdd.point.UserPointService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,4 +63,22 @@ public class UserPointServiceTest {
         assertEquals(findUserPoint.id() , userId);
     }
 
+    //PointUser 충전 기능 테스트
+    @Test
+    @DisplayName("PointUser 충전 서비스 로직 테스트")
+    public void pointCharge() {
+        //given
+        UserPoint userPoint = new UserPoint(1L , 10000 , 100000);
+        long chargePoint = 100000;
+        long expectSum = userPoint.point() + chargePoint;
+
+        given(userPointTable.insertOrUpdate(userPoint.id() , expectSum))
+                .willReturn(new UserPoint(userPoint.id(), userPoint.point(), userPoint.updateMillis()));
+
+        //when
+        UserPoint chargedPoint = userPointService.charge(userPoint.id() , chargePoint);
+
+        //then
+        assertEquals(expectSum,chargedPoint.point());
+    }
 }

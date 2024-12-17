@@ -19,7 +19,6 @@ class ApiControllerAdvice extends ResponseEntityExceptionHandler {
                 .map(violation -> violation.getMessage())
                 .findFirst()
                 .orElse("잘못된 요청입니다.");
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
     //컨트롤러의 요청 파라미터가 타입 변환 실패 시
