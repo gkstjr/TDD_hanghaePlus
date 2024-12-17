@@ -72,8 +72,10 @@ public class UserPointServiceTest {
         long chargePoint = 100000;
         long expectSum = userPoint.point() + chargePoint;
 
+        given(userPointTable.selectById(userPoint.id()))
+                .willReturn(userPoint);
         given(userPointTable.insertOrUpdate(userPoint.id() , expectSum))
-                .willReturn(new UserPoint(userPoint.id(), userPoint.point(), userPoint.updateMillis()));
+                .willReturn(new UserPoint(userPoint.id(), expectSum, userPoint.updateMillis()));
 
         //when
         UserPoint chargedPoint = userPointService.charge(userPoint.id() , chargePoint);

@@ -86,20 +86,63 @@ public class UserPointControllerTest {
     @Test
     @DisplayName("[포인트충전]클라이언트의 ID 입력값이 정수 형태가 아니면 예외 메시지 반환")
     public void IdIsNotNumber_charge_ThrowException() throws Exception {
-       String userStrId = "dfsg";
-       double userDoubleId = 0.02;
-       long amount = 1000L;
+        String userStrId = "dfsg";
+        double userDoubleId = 0.02;
+        long amount = 1000L;
 
-       mockMvc.perform(patch("/point/{id}/charge", userStrId)
-                .content(String.valueOf(amount))
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(patch("/point/{id}/charge", userStrId)
+                        .content(String.valueOf(amount))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("입력값 타입이 잘못 되었습니다."));
 
-       mockMvc.perform(patch("/point/{id}/charge" , userDoubleId)
-                .content(String.valueOf(amount))
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(patch("/point/{id}/charge", userDoubleId)
+                        .content(String.valueOf(amount))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("입력값 타입이 잘못 되었습니다."));
     }
+
+    @Test
+    @DisplayName("[포인트사용]클라이언트의 ID 입력값이 정수 형태가 아니면 예외 메시지 반환")
+    public void IdIsNotNumber_use_ThrowException() throws Exception {
+        String userStrId = "dfsg";
+        double userDoubleId = 0.02;
+        long amount = 1000L;
+
+        mockMvc.perform(patch("/point/{id}/use", userStrId)
+                        .content(String.valueOf(amount))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("입력값 타입이 잘못 되었습니다."));
+
+        mockMvc.perform(patch("/point/{id}/use", userDoubleId)
+                        .content(String.valueOf(amount))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("입력값 타입이 잘못 되었습니다."));
+    }
+
+    @Test
+    @DisplayName("[포인트 사용]클라이언트의 ID , 포인트 입력값이 0이하이면 예외 메시지 반환")
+    public void IdIsZeroOrNegative_use_ThrowException() throws Exception {
+        long id = 1L;
+        long zeroId = 0L;
+        long negativeId = -100L;
+        long amount = 1000L;
+        long negativeAmount = -1000L;
+
+        mockMvc.perform(patch("/point/{id}/use", zeroId)
+                        .content(String.valueOf(amount))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("ID는 1 이상의 값이어야 합니다."));
+
+        mockMvc.perform(patch("/point/{id}/use", id)
+                        .content(String.valueOf(negativeAmount))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("포인트 사용은 1 이상의 값이어야 합니다."));
+    }
+
 }

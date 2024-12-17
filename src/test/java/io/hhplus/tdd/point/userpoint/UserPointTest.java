@@ -55,4 +55,8 @@ public class UserPointTest {
         //then
         assertEquals(userPoint.point() + chargePoint ,chargedPoint.point());
     }
+//
+//    @Test
+//    @DisplayName("[포인트 사용] 사용한 포인트가 0 미만 일 때 예외 처리")
+//    public
 }

@@ -51,8 +51,8 @@ public class PointController {
      */
     @PatchMapping("{id}/use")
     public UserPoint use(
-            @PathVariable long id,
-            @RequestBody long amount
+            @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id,
+            @RequestBody @Min(value = 1, message = "포인트 사용은 1 이상의 값이어야 합니다.") long amount
     ) {
         return new UserPoint(0, 0, 0);
     }
