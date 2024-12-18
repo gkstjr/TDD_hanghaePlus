@@ -1,5 +1,6 @@
 package io.hhplus.tdd.point;
 
+import io.hhplus.tdd.point.pointhistory.PointHistory;
 import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class PointController {
      */
     @GetMapping("{id}/histories")
     public List<PointHistory> history(
-            @PathVariable long id
+            @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id
     ) {
         return List.of();
     }
