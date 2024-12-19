@@ -1,10 +1,13 @@
 package io.hhplus.tdd.point.userpoint;
 
 import io.hhplus.tdd.point.PointController;
+import io.hhplus.tdd.point.UserPointService;
+import io.hhplus.tdd.point.pointhistory.PointHistoryServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -15,12 +18,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * - 비즈니스 로직 관련 검증이 아닌 단순 입력 검증(ex. 타입 , 음수값) 처리는 Controller에서 Validated 사용하여 검증
  *  (이유) 1.입력값 검증을 빠르게 하여 성능 향상
  *        2.컨트롤러의 책임이 확실해진다고 생각했습니다.
+ *  (구현 후 의문점)
+ *  - 컨트롤러에서 요청에 대한 유효성 검증만이 목표였던 테스트인데... Controller 구현 완료 후 의존하고 있는 Service까지 같이 테스트 하는
+ *    통합 테스트의 형태로 변경 된 거 같다.. -> Controller의 메서드 레벨 테스트를 작성하는 방법이 더 내가 원했던 목표에 가까운 방법이였던 거 같다.
+ *
  */
 @WebMvcTest(PointController.class)
 public class UserPointControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
+    @MockBean
+    private PointHistoryServiceImpl pointHistoryService;
+    @MockBean
+    private UserPointService userPointService;
     //클라이언트의 ID 입력값이 0이하이면 예외 메시지 반환
     @Test
     @DisplayName("[포인트 조회]클라이언트의 ID 입력값이 0이하이면 예외 메시지 반환")
