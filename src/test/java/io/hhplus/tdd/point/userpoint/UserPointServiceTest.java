@@ -4,10 +4,8 @@ import io.hhplus.tdd.database.UserPointTable;
 import io.hhplus.tdd.point.UserPoint;
 import io.hhplus.tdd.point.UserPointService;
 import io.hhplus.tdd.point.pointhistory.PointHistory;
-import io.hhplus.tdd.point.pointhistory.PointHistoryServiceImpl;
 import io.hhplus.tdd.point.testdoubles.FakePointHistoryService;
 import io.hhplus.tdd.point.testdoubles.FakePointHistoryTable;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
