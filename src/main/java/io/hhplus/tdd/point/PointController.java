@@ -1,5 +1,7 @@
 package io.hhplus.tdd.point;
 
+import io.hhplus.tdd.point.pointhistory.PointHistory;
+import io.hhplus.tdd.point.pointhistory.PointHistoryService;
 import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,12 @@ public class PointController {
 
     private static final Logger log = LoggerFactory.getLogger(PointController.class);
 
+    private final UserPointService userPointService;
+    private final PointHistoryService pointHistoryService;
+    public PointController(UserPointService userPointService , PointHistoryService pointHistoryService) {
+        this.userPointService = userPointService;
+        this.pointHistoryService = pointHistoryService;
+    }
     /**
      * TODO - 특정 유저의 포인트를 조회하는 기능을 작성해주세요.
      */
@@ -22,7 +30,7 @@ public class PointController {
     public UserPoint point(
             @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id
     ) {
-        return new UserPoint(0, 0, 0);
+        return userPointService.selectById(id);
     }
 
     /**
@@ -30,9 +38,9 @@ public class PointController {
      */
     @GetMapping("{id}/histories")
     public List<PointHistory> history(
-            @PathVariable long id
+            @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id
     ) {
-        return List.of();
+        return pointHistoryService.selectAllByUserId(id);
     }
 
     /**
@@ -40,10 +48,10 @@ public class PointController {
      */
     @PatchMapping("{id}/charge")
     public UserPoint charge(
-            @PathVariable long id,
+            @PathVariable  @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id,
             @RequestBody long amount
     ) {
-        return new UserPoint(0, 0, 0);
+        return userPointService.charge(id , amount);
     }
 
     /**
@@ -51,9 +59,9 @@ public class PointController {
      */
     @PatchMapping("{id}/use")
     public UserPoint use(
-            @PathVariable long id,
-            @RequestBody long amount
+            @PathVariable @Min(value = 1, message = "ID는 1 이상의 값이어야 합니다.") long id,
+            @RequestBody @Min(value = 1, message = "포인트 사용은 1 이상의 값이어야 합니다.") long amount
     ) {
-        return new UserPoint(0, 0, 0);
+        return userPointService.use(id , amount);
     }
 }

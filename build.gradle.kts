@@ -29,6 +29,8 @@ dependencies {
     testImplementation(libs.spring.boot.starter.test)
     //프로젝트 설정파일 수정 안하기 위해 libs로 통일 x
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+
 }
 
 // about source and compilation
