@@ -1,4 +1,7 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.testdoubles;
+
+import io.hhplus.tdd.point.UserPoint;
+
 // 테스트에서 객체 생성의 반복코드를 줄이고 유연하게 대웅하기 위해 Factory 패턴 사용
 public class UserPointFactory {
 
